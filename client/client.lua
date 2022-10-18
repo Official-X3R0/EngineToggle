@@ -13,10 +13,10 @@ Citizen.CreateThread(function()
                 Citizen.Wait(300)
             end
         end
-        if GetSeatPedIsTryingToEnter(GetPlayerPed(-1)) == -1 and not table.contains(vehicles, GetVehiclePedIsTryingToEnter(GetPlayerPed(-1))) then
-            table.insert(vehicles, {GetVehiclePedIsTryingToEnter(GetPlayerPed(-1)), IsVehicleEngineOn(GetVehiclePedIsTryingToEnter(GetPlayerPed(-1)))})
-        elseif IsPedInAnyVehicle(GetPlayerPed(-1), false) and not table.contains(vehicles, GetVehiclePedIsIn(GetPlayerPed(-1), false)) then
-            table.insert(vehicles, {GetVehiclePedIsIn(GetPlayerPed(-1), false), IsVehicleEngineOn(GetVehiclePedIsIn(GetPlayerPed(-1), false))})
+        if GetSeatPedIsTryingToEnterPlayerPedId()) == -1 and not table.contains(vehicles, GetVehiclePedIsTryingToEnterPlayerPedId())) then
+            table.insert(vehicles, {GetVehiclePedIsTryingToEnterPlayerPedId()), IsVehicleEngineOn(GetVehiclePedIsTryingToEnterPlayerPedId()))})
+        elseif IsPedInAnyVehiclePlayerPedId(), false) and not table.contains(vehicles, GetVehiclePedIsInPlayerPedId(), false)) then
+            table.insert(vehicles, {GetVehiclePedIsInPlayerPedId(), false), IsVehicleEngineOn(GetVehiclePedIsInPlayerPedId(), false))})
         end
         for i, vehicle in ipairs(vehicles) do
             if DoesEntityExist(vehicle[1]) then
@@ -27,7 +27,7 @@ Citizen.CreateThread(function()
                         if RPWorking then
                             SetVehicleEngineOn(vehicle[1], vehicle[2], false, true)
                             SetVehicleJetEngineOn(vehicle[1], vehicle[2])
-                            if not IsPedInAnyVehicle(GetPlayerPed(-1), false) or (IsPedInAnyVehicle(GetPlayerPed(-1), false) and vehicle[1]~= GetVehiclePedIsIn(GetPlayerPed(-1), false)) then
+                            if not IsPedInAnyVehiclePlayerPedId(), false) or (IsPedInAnyVehiclePlayerPedId(), false) and vehicle[1]~= GetVehiclePedIsInPlayerPedId(), false)) then
                                 if IsThisModelAHeli(GetEntityModel(vehicle[1])) or IsThisModelAPlane(GetEntityModel(vehicle[1])) then
                                     if vehicle[2] then
                                         SetHeliBladesFullSpeed(vehicle[1])
@@ -48,13 +48,13 @@ AddEventHandler('EngineToggle:Engine', function()
     local veh
     local StateIndex
     for i, vehicle in ipairs(vehicles) do
-        if vehicle[1] == GetVehiclePedIsIn(GetPlayerPed(-1), false) then
+        if vehicle[1] == GetVehiclePedIsInPlayerPedId(), false) then
             veh = vehicle[1]
             StateIndex = i
         end
     end
     Citizen.Wait(0)
-    if IsPedInAnyVehicle(GetPlayerPed(-1), false) then 
+    if IsPedInAnyVehiclePlayerPedId(), false) then 
         if (GetPedInVehicleSeat(veh, -1) == GetPlayerPed(-1)) then
             vehicles[StateIndex][2] = not GetIsVehicleEngineRunning(veh)
             if vehicles[StateIndex][2] then
@@ -72,9 +72,9 @@ if OnAtEnter then
     Citizen.CreateThread(function()
         while true do
             Citizen.Wait(0)
-            if GetSeatPedIsTryingToEnter(GetPlayerPed(-1)) == -1 then
+            if GetSeatPedIsTryingToEnterPlayerPedId()) == -1 then
                 for i, vehicle in ipairs(vehicles) do
-                    if vehicle[1] == GetVehiclePedIsTryingToEnter(GetPlayerPed(-1)) and not vehicle[2] then
+                    if vehicle[1] == GetVehiclePedIsTryingToEnterPlayerPedId()) and not vehicle[2] then
                         Citizen.Wait(0)
                         vehicle[2] = true
                     end
